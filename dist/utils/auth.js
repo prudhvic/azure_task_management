@@ -1,0 +1,43 @@
+import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
+export async function hashPassword(password, salt = 10) {
+    try {
+        const hashedPassword = await bcrypt.hash(password, salt);
+        return hashedPassword;
+    }
+    catch (error) {
+        console.log("Unable to pefrorm  password hash operation");
+        throw new Error("unable to perform password hash");
+    }
+}
+export async function verifyPassword(originalPassword, hashedPassword) {
+    try {
+        const isValid = await bcrypt.compare(originalPassword, hashedPassword);
+        return isValid;
+    }
+    catch (error) {
+        console.log("Unable to compare password");
+        throw new Error("unable to compare password");
+    }
+}
+export function signJwtToken(payload) {
+    try {
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
+        return token;
+    }
+    catch (error) {
+        console.log("Unable to sign JWT token");
+        throw new Error("unable to sign JWT token");
+    }
+}
+export function verifyJwtToken(token) {
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        return decoded;
+    }
+    catch (error) {
+        console.log("Unable to verify JWT token");
+        throw new Error("unable to verify JWT token");
+    }
+}
+//# sourceMappingURL=auth.js.map

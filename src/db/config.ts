@@ -1,0 +1,14 @@
+import "dotenv/config";
+import * as schemas from "./schema.js"
+
+import { Pool } from "pg";
+import { drizzle } from "drizzle-orm/node-postgres";
+
+export const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: true
+    }
+})
+
+export const db = drizzle(pool, { schema: schemas })
