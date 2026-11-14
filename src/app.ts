@@ -1,5 +1,5 @@
 import express from "express"
-import postsRouter from "./routes/posts.js"
+import tasksRouter from "./routes/tasks.js"
 import usersRouter from "./routes/users.js"
 import CookieParser from "cookie-parser"
 import { errorHandler } from "./middleware/errorHandler.js"
@@ -11,7 +11,7 @@ app.use(CookieParser())
 app.use(cors())
 
 
-app.use("/api/v1", postsRouter)
+app.use("/api/v1", tasksRouter)
 
 
 app.use("/api/v1/users", usersRouter)
